@@ -14,13 +14,48 @@ require("neogit").setup{}
 -- Treesitter Setup
 require 'nvim-treesitter.configs'.setup{
     indent = {
-        enable = true,
+        enable = false,
     },
     parser_install_dir = '~/.config/nvim/ts_parsers',
 }
 
+-- Leap Setup
+require('leap').add_default_mappings()
+
 -- Lualine Setup
 require('lualine').setup{}
+
+-- NvimTree Setup
+require('nvim-tree').setup{
+    renderer = {
+        icons = {
+            show = {
+                file = false,
+                folder = false,
+                folder_arrow = false,
+                git = false
+            }
+        }
+    }
+}
+
+-- AutoPairs
+require('nvim-autopairs').setup{}
+
+-- Trouble Setup
+require('trouble').setup{
+    icons = false,
+    fold_open = "v",
+    fold_close = ">",
+    indent_lines = false,
+    signs = {
+        error = "error",
+        warning = "warning",
+        hint = "hint",
+        information = "info"
+    },
+    use_diagnostic_signs = false
+}
 
 -- Autocompletion Settings
 vim.o.completeopt='menu,menuone,noselect'
@@ -108,15 +143,19 @@ vim.o.termguicolors = true
 vim.cmd('colorscheme nord')
 
 -- Basic Editor Options
+vim.o.expandtab = true
 vim.o.tabstop = 4     
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4  
-vim.o.expandtab = true
 vim.o.number = true
+vim.o.relativenumber = true
+vim.o.autoindent = true
+vim.o.cindent = true
 
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldenable = false
+
 
 -- Keymaps
 vim.g.mapleader = " "
@@ -166,12 +205,11 @@ vimp.nnoremap('<leader>o',
 
 -- func: run code in output buffer then delete when done
 vim.cmd("au BufLeave output.scratch bd")
-vimp.nnoremap('<leader>r',
+vimp.nnoremap('<leader>b',
     function()
         fn = vim.fn.expand("%")
         ft = vim.bo.filetype
         
-
         vim.cmd("vsplit output.scratch")
         vim.cmd("buffer output.scratch")
 
@@ -180,12 +218,40 @@ vimp.nnoremap('<leader>r',
         vim.cmd("setlocal noswapfile")
 
         if ft == "c" then
-            vim.cmd("r !make")
-            vim.cmd("r !./bin/application")
+            vim.cmd("r !./build.sh")
 
         elseif ft == "cpp" then
-            vim.cmd("r !make")
-            vim.cmd("r !./bin/application")
+            vim.cmd("r !./build.sh")
+
+        elseif ft == "rust" then
+            vim.cmd("r !cargo build")
+        elseif ft == "go" then
+            vim.cmd(string.format("r !go build %s", fn))
+        end
+
+        vim.bo.ro = true
+    end
+)
+
+vimp.nnoremap('<leader>r',
+    function()
+        fn = vim.fn.expand("%")
+        ft = vim.bo.filetype
+        
+        vim.cmd("vsplit output.scratch")
+        vim.cmd("buffer output.scratch")
+
+        vim.bo.buftype = "nofile"
+        vim.bo.bufhidden = "hide"
+        vim.cmd("setlocal noswapfile")
+
+        if ft == "c" then
+            vim.cmd("r !./build.sh")
+            vim.cmd("r !./run.sh")
+
+        elseif ft == "cpp" then
+            vim.cmd("r !./build.sh")
+            vim.cmd("r !./run.sh")
 
         elseif ft == "rust" then
             vim.cmd("r !cargo run")
@@ -227,3 +293,9 @@ vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
 vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
 vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations, {})
 vim.keymap.set('n', '<leader>fs', builtin.treesitter, {})
+
+-- NvimTree Keys
+vim.keymap.set('n', '<leader>t', '<cmd>NvimTreeToggle<cr>', { silent = true, noremap = true } )
+
+-- Trouble Keys
+vim.keymap.set('n', '<leader>xx', '<cmd>TroubleToggle<cr>', { silent = true, noremap = true } )

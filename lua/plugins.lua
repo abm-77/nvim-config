@@ -25,13 +25,13 @@ return require('packer').startup(
 
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
 
-        use 'nvim-tree/nvim-tree.lua'
+        use {'nvim-tree/nvim-tree.lua'}
 
         use 'windwp/nvim-autopairs'
 
         use 'nvim-lua/plenary.nvim'
 
-        use {'nvim-telescope/telescope.nvim', {tag = '0.1.0'}}
+        use {'nvim-telescope/telescope.nvim', {tag = '0.1.1'}}
 
         use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
         
@@ -44,6 +44,10 @@ return require('packer').startup(
         use 'dcampos/nvim-snippy'
         use 'dcampos/cmp-snippy'
 
+        use 'folke/trouble.nvim'
+
+        use {'ggandor/leap.nvim', requires = 'tpope/vim-repeat'}
+        
         if packer_bootstrap then 
             require('packer').sync()
         end
