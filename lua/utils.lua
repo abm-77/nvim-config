@@ -25,4 +25,5 @@ function M.create_scratch_buffer_window()
     cmd('set noswapfile')
 end
 
+
 return M

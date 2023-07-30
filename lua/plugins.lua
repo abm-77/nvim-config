@@ -13,42 +13,41 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(
     function(use)
+        -- Config
         use 'wbthomason/packer.nvim'
-        
-        use 'arcticicestudio/nord-vim'
-
-        use 'nvim-lualine/lualine.nvim'
-
+        use 'nvim-lua/plenary.nvim'
         use 'svermeulen/vimpeccable'
 
+        -- Appearance
+        use 'arcticicestudio/nord-vim'
+        use 'nvim-lualine/lualine.nvim'
+
+        -- IDE Capabilitites
         use 'neovim/nvim-lspconfig'
-
+        use 'mfussenegger/nvim-dap'
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-
-        use {'nvim-tree/nvim-tree.lua'}
-
-        use 'windwp/nvim-autopairs'
-
-        use 'nvim-lua/plenary.nvim'
-
         use {'nvim-telescope/telescope.nvim', {tag = '0.1.1'}}
-
-        use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
-        
         use 'hrsh7th/cmp-nvim-lsp'
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/nvim-cmp'
-
         use 'dcampos/nvim-snippy'
         use 'dcampos/cmp-snippy'
-
+        use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
+        use 'windwp/nvim-autopairs'
         use 'folke/trouble.nvim'
-
         use {'ggandor/leap.nvim', requires = 'tpope/vim-repeat'}
-        
-        if packer_bootstrap then 
+        use 'romgrk/barbar.nvim'
+        use 'mhartington/formatter.nvim'
+        use 'numToStr/Comment.nvim'
+
+        -- File System
+        use 'nvim-tree/nvim-tree.lua'
+        use 'nvim-tree/nvim-web-devicons'
+        use 'stevearc/oil.nvim'
+
+        if packer_bootstrap then
             require('packer').sync()
         end
     end
