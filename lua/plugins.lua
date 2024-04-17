@@ -21,10 +21,10 @@ return require('packer').startup(
         -- Appearance
         use 'arcticicestudio/nord-vim'
         use 'nvim-lualine/lualine.nvim'
+        use 'rose-pine/neovim'
 
         -- IDE Capabilitites
         use 'neovim/nvim-lspconfig'
-        use 'mfussenegger/nvim-dap'
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
         use {'nvim-telescope/telescope.nvim', {tag = '0.1.1'}}
         use 'hrsh7th/cmp-nvim-lsp'
@@ -37,10 +37,11 @@ return require('packer').startup(
         use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
         use 'windwp/nvim-autopairs'
         use 'folke/trouble.nvim'
-        use {'ggandor/leap.nvim', requires = 'tpope/vim-repeat'}
         use 'romgrk/barbar.nvim'
         use 'mhartington/formatter.nvim'
         use 'numToStr/Comment.nvim'
+        use 'ziglang/zig.vim'
+        use 'tetralux/odin.vim'
 
         -- File System
         use 'nvim-tree/nvim-tree.lua'
