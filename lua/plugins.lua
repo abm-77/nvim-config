@@ -37,7 +37,7 @@ return require('packer').startup(
         use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
         use 'windwp/nvim-autopairs'
         use 'folke/trouble.nvim'
-        use 'romgrk/barbar.nvim'
+        --use 'romgrk/barbar.nvim'
         use 'mhartington/formatter.nvim'
         use 'numToStr/Comment.nvim'
         use 'ziglang/zig.vim'

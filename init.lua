@@ -40,7 +40,7 @@ require('formatter').setup {
 }
 
 -- BarBar Setup
-require('barbar').setup {}
+--require('barbar').setup {}
 
 -- Lualine Setup
 require('lualine').setup{
@@ -285,12 +285,6 @@ vimp.inoremap('<up>', '<nop>')
 -- Quick Escape
 vimp.inoremap('jk', '<esc>')
 
--- Tabbing
---vimp.nnoremap('<tab>', '>>')
-vimp.nnoremap('<backspace>', '<<')
---vimp.vnoremap('<tab>', '>>')
-vimp.vnoremap('<backspace>', '<<')
-
 -- Beginning and End of Line
 vimp.noremap('H', '0')
 vimp.noremap('L', '$')
@@ -314,14 +308,6 @@ vimp.nnoremap('\\',
     end
 )
 
--- func: create new tab and open file open dialogue
-vimp.nnoremap('<leader>o',
-    function()
-        vim.cmd('tabnew')
-        vim.cmd('Telescope find_files')
-    end
-)
-
 -- func: open config file
 vimp.nnoremap('<leader>ss',
     function ()
@@ -340,29 +326,17 @@ vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {f
 vimp.inoremap('{<CR>', '{<CR>}<C-o>O')
 vimp.inoremap('(<CR>', '(<CR>)<C-o>O')
 
-
--- Tab Controls
-vimp.noremap('<leader>,', '<Cmd>BufferPrevious<CR>')
-vimp.noremap('<leader>.', '<Cmd>BufferNext<CR>')
-vimp.noremap('<leader>>', '<Cmd>BufferMovePrevious<CR>')
-vimp.noremap('<leader><', '<Cmd>BufferMoveNext<CR>')
-vimp.noremap('<leader>1', '<Cmd>BufferGoto 1<CR>')
-vimp.noremap('<leader>2', '<Cmd>BufferGoto 2<CR>')
-vimp.noremap('<leader>3', '<Cmd>BufferGoto 3<CR>')
-vimp.noremap('<leader>4', '<Cmd>BufferGoto 4<CR>')
-vimp.noremap('<leader>5', '<Cmd>BufferGoto 5<CR>')
-vimp.noremap('<leader>6', '<Cmd>BufferGoto 6<CR>')
-vimp.noremap('<leader>7', '<Cmd>BufferGoto 7<CR>')
-vimp.noremap('<leader>8', '<Cmd>BufferGoto 8<CR>')
-vimp.noremap('<leader>9', '<Cmd>BufferGoto 9<CR>')
-vimp.noremap('<leader>0', '<Cmd>BufferLast<CR>')
-vimp.noremap('<leader>cc','<Cmd>BufferClose<CR>')
-
 -- Windows Controls
 vimp.nnoremap('<leader>l', '<C-w>l')
 vimp.nnoremap('<leader>h', '<C-w>h')
 vimp.nnoremap('<leader>k', '<C-w>k')
 vimp.nnoremap('<leader>j', '<C-w>j')
+
+vimp.nnoremap('[[', '/{<CR>N:nohlsearch<CR>')
+vimp.nnoremap(']]', '/{<CR>n:nohlsearch<CR>')
+
+-- Buffer Controls
+vimp.nnoremap('<leader>b', ':b#<CR>')
 
 -- Augroup: On Save
 local augroup_onsave = vim.api.nvim_create_augroup('augroup_onsave', { clear = true })
